@@ -1,11 +1,3 @@
-/*
- * HTTP Cookie:存储会话信息
- * 名称和值传送时必须是经过RUL编码的
- * cookie绑定在指定的域名下，非本域无法共享cookie，但是可以是在主站共享cookie给子站
- * cookie有一些限制：比如IE6 & IE6- 限定在20个；IE7 50个；Opear 30个...所以一般会根据【必须】需求才设定cookie
- * cookie的名称不分大小写；同时建议将cookie URL编码；路径是区分cookie在不同情况下传递的好方式；带安全标志cookie
- *     在SSL情况下发送到服务器端，http则不会。建议针对cookie设置expires、domain、 path；每个cookie小于4KB
- * */
 //对cookie的封装，采取getter、setter方式
 (function(global){
 	//获取cookie对象，以对象表示
@@ -23,25 +15,11 @@
 		return cookies;
 	}
 	//设置cookie
-	function set(name, value, opts){
-		//opts maxAge, path, domain, secure
+	function set(name, value, times){
 		if(name && value){
-			var cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value);
-			//可选参数
-			if(opts){
-				if(opts.maxAge){
-					cookie += '; max-age=' + opts.maxAge; 
-				}
-				if(opts.path){
-					cookie += '; path=' + opts.path;
-				}
-				if(opts.domain){
-					cookie += '; domain=' + opts.domain;
-				}
-				if(opts.secure){
-					cookie += '; secure';
-				}
-			}
+			var date = new Date();
+			date.setTime(date.getTime() + times * 60 * 1000);
+			var cookie = encodeURIComponent(name) + '=' + encodeURIComponent(value) + ((times == null) ? "" : ";expires=" + date.toGMTString());
 			document.cookie = cookie;
 			return cookie;
 		}else{
