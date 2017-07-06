@@ -1,11 +1,11 @@
+
 cookie
 -----------------
 cookie is HTTP cookie. This library can better help you use cookie, for example, you can use the getter and setter methods
 
 ####Methods
 	getCookies():get all cookie
-	set(name, value[, opts]):set cookie; name is key，value is value of key; opts 
-			is a obj that contains max-age、path、domain、secure attributes
+	set(name, value,times):set cookie; name is key，value is value of key,times is hold time; 
 	get(name)：get a cookie value by name
 	remove(name)： delete a cookie by name
 	clear(): clear all cookie
@@ -19,8 +19,8 @@ You can see the cookie.html flie, it contains some examples
 (2) Use methods: cookie is a global var.   
 
     cookie.set('name', 'vczero');
-	cookie.getCookies();
-	cookie.get('name');
-	cookie.remove('name');
-	cookie.clear();
-	cookie.noConflict(true /*a new name of cookie*/);
+    cookie.getCookies();
+    cookie.get('name');
+    cookie.remove('name');
+    cookie.clear();
+    cookie.noConflict(true /*a new name of cookie*/);
